@@ -1,12 +1,11 @@
 import React from 'react';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 // import { Route, Switch, useLocation, Redirect, useHistory } from 'react-router-dom';
 import { Counter } from './features/counter/Counter';
 import MuiThemeProvider from './theme';
 import { Button } from '@mui/material';
 
 function App() {
-  const [res, setRes] = React.useState<Promise<AxiosResponse<any, any> | undefined>>();
   const api = async () => {
     try {
       const response = await axios.get('https://stackoverflow.com/oauth/dialog', {
