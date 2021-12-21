@@ -12,7 +12,7 @@ function App() {
         params: {
           client_id: 22525,
           // redirect_uri: '/',
-          scope: 'write_access',
+          // scope: 'write_access',
         },
       });
       console.log(response);
