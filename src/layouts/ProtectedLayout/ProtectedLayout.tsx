@@ -1,15 +1,18 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAppSelector } from '../../app/hooks';
-import { selectUser } from '../../slices/userSlice';
+import { selectLoggedIn } from '../../slices/authenticationSlice';
+import { pathnames } from '../../utils/constants';
 import { ProtectedLayoutProps } from './Types';
 
 const ProtectedLayout = (props: ProtectedLayoutProps) => {
   const { children } = props;
 
-  const user = useAppSelector(selectUser);
+  const location = useLocation();
 
-  if (!user) {
-    return <Navigate to='/' />;
+  const isLoggedIn = useAppSelector(selectLoggedIn);
+
+  if (!isLoggedIn) {
+    return <Navigate to={pathnames.login} state={{ from: location }} />;
   }
 
   return children;

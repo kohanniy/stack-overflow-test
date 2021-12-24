@@ -1,4 +1,4 @@
-export const StackOverflowIcon = ({width = 100}) => (
+export const StackOverflowIcon = ({ width = 100 }) => (
   <svg xmlns='http://www.w3.org/2000/svg' width={width} viewBox='0 0 622 124'>
     <g fill='none' fillRule='evenodd'>
       <path

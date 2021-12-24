@@ -1,3 +1,3 @@
-export interface ProtectedLayoutProps { 
-  children: JSX.Element 
+export interface ProtectedLayoutProps {
+  children: JSX.Element
 }

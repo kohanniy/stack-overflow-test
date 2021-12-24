@@ -6,13 +6,13 @@ import {
 } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import counterReducer from '../features/counter/counterSlice';
-import userReducer from '../slices/userSlice';
+import authenticationReducer from '../slices/authenticationSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const reducer = combineReducers({
+  authentication: authenticationReducer,
   counter: counterReducer,
-  user: userReducer,
 });
 
 export const store = configureStore({

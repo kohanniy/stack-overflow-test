@@ -1,15 +1,16 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Typography, Button, useTheme } from '@mui/material';
 import OAuth2Login from 'react-simple-oauth2-login';
 import { useTranslation } from 'react-i18next';
 import { PaperStyled, typographyStyles } from './Styles';
-import { AuthButtonProps, IAccessToken, IAuthError } from './Types';
+import { AuthButtonProps, IAuthError, LoginPageProps } from './Types';
 import LoginLayout from '../../layouts/LoginLayout';
 import { StackOverflowIcon } from '../../assets/Icons';
+import { pathnames } from '../../utils/constants';
 
 const AUTH_URL = 'https://stackoverflow.com/oauth/dialog';
 const CLIENT_ID = '22525';
-const REDIRECT_URI = 'http://localhost:3000';
+const REDIRECT_URI = `http://localhost:3000/${pathnames.login}`;
 const RES_TYPE = 'token';
 const SCOPE = 'write_access';
 
@@ -22,30 +23,26 @@ const renderAuthButton =
       </Button>
     );
 
-const LoginPage = () => {
+const LoginPage = (props: LoginPageProps) => {
+  const { onSuccess } = props;
+
   const theme = useTheme();
 
   const { t } = useTranslation();
 
-  const [accessToken, setAccessToken] = useState<string | null>(null);
   const [error, setError] = useState<IAuthError | null>(null);
 
-  const onSuccess = ({ access_token: token }: IAccessToken) => setAccessToken(token);
-
-  const memoizeOAuth2Config = useMemo(
-    () => ({
-      authorizationUrl: AUTH_URL,
-      clientId: CLIENT_ID,
-      redirectUri: REDIRECT_URI,
-      responseType: RES_TYPE,
-      buttonText: t('authButtonText'),
-      onSuccess,
-      onFailure: setError,
-      scope: SCOPE,
-      render: renderAuthButton(error),
-    }),
-    [error, t]
-  );
+  const oAuth2Config = {
+    authorizationUrl: AUTH_URL,
+    clientId: CLIENT_ID,
+    redirectUri: REDIRECT_URI,
+    responseType: RES_TYPE,
+    buttonText: t('authButtonText'),
+    onSuccess,
+    onFailure: setError,
+    scope: SCOPE,
+    render: renderAuthButton(error),
+  };
 
   return (
     <LoginLayout>
@@ -59,7 +56,7 @@ const LoginPage = () => {
           {error ? error.message : t('loginPageText')}
         </Typography>
         <StackOverflowIcon width={200} />
-        <OAuth2Login {...memoizeOAuth2Config} />
+        <OAuth2Login {...oAuth2Config} />
       </PaperStyled>
     </LoginLayout>
   );

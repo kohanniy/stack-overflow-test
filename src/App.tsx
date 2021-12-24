@@ -1,22 +1,57 @@
-import { Counter } from './features/counter/Counter';
-import MuiThemeProvider from './theme';
-import { Routes, Route } from 'react-router-dom';
-import QuestionsPage from './pages/QuestionsPage';
+import { useEffect } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import ProtectedLayout from './layouts/ProtectedLayout';
+import QuestionsPage from './pages/Questions';
 import NotFound from './pages/NotFound';
 import LoginPage from './pages/Login';
-import ProtectedLayout from './layouts/ProtectedLayout';
+import { useAppDispatch } from './app/hooks';
+import { login, logout } from './slices/authenticationSlice';
+import { ACCESS_TOKEN_KEY, pathnames } from './utils/constants';
+import { IAccessToken, LocationState } from './utils/types';
+
+// import { Counter } from './features/counter/Counter';
 
 function App() {
+  const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = (location.state as LocationState)?.from?.pathname || pathnames.home;
+
+  const handleLogin = ({ access_token: token }: IAccessToken) => {
+    localStorage.setItem(ACCESS_TOKEN_KEY, token);
+    dispatch(login());
+    navigate(from, { replace: true });
+  };
+
+  const handleLogout = () => {
+    navigate(pathnames.login);
+    dispatch(logout());
+    localStorage.removeItem(ACCESS_TOKEN_KEY);
+  };
+
+  // checking for an access token
+  useEffect(() => {
+    const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+    const path = location.pathname;
+
+    if (accessToken) {
+      dispatch(login());
+      path === pathnames.login && navigate(pathnames.home);
+    }
+  }, [dispatch, location, navigate]);
 
   const Questions = (
     <ProtectedLayout>
-      <QuestionsPage />
+      <QuestionsPage onLogoutButtonClick={handleLogout} />
     </ProtectedLayout>
   );
+
   return (
     <Routes>
-      <Route path='/' element={<LoginPage />} />
-      <Route path='/questions' element={Questions} />
+      <Route path='/' element={Questions} />
+      <Route path='/login' element={<LoginPage onSuccess={handleLogin} />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
     // <div className='App'>
