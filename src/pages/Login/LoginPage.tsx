@@ -1,0 +1,68 @@
+import { useMemo, useState } from 'react';
+import { Typography, Button, useTheme } from '@mui/material';
+import OAuth2Login from 'react-simple-oauth2-login';
+import { useTranslation } from 'react-i18next';
+import { PaperStyled, typographyStyles } from './Styles';
+import { AuthButtonProps, IAccessToken, IAuthError } from './Types';
+import LoginLayout from '../../layouts/LoginLayout';
+import { StackOverflowIcon } from '../../assets/Icons';
+
+const AUTH_URL = 'https://stackoverflow.com/oauth/dialog';
+const CLIENT_ID = '22525';
+const REDIRECT_URI = 'http://localhost:3000';
+const RES_TYPE = 'token';
+const SCOPE = 'write_access';
+
+const renderAuthButton =
+  (error: IAuthError | null) =>
+  ({ buttonText, ...props }: AuthButtonProps) =>
+    (
+      <Button variant='contained' color={error ? 'error' : 'primary'} {...props}>
+        {buttonText}
+      </Button>
+    );
+
+const LoginPage = () => {
+  const theme = useTheme();
+
+  const { t } = useTranslation();
+
+  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [error, setError] = useState<IAuthError | null>(null);
+
+  const onSuccess = ({ access_token: token }: IAccessToken) => setAccessToken(token);
+
+  const memoizeOAuth2Config = useMemo(
+    () => ({
+      authorizationUrl: AUTH_URL,
+      clientId: CLIENT_ID,
+      redirectUri: REDIRECT_URI,
+      responseType: RES_TYPE,
+      buttonText: t('authButtonText'),
+      onSuccess,
+      onFailure: setError,
+      scope: SCOPE,
+      render: renderAuthButton(error),
+    }),
+    [error, t]
+  );
+
+  return (
+    <LoginLayout>
+      <PaperStyled error={!!error} elevation={0} variant='outlined'>
+        <Typography
+          sx={typographyStyles(!!error, theme)}
+          align='center'
+          component='p'
+          variant='body2'
+        >
+          {error ? error.message : t('loginPageText')}
+        </Typography>
+        <StackOverflowIcon width={200} />
+        <OAuth2Login {...memoizeOAuth2Config} />
+      </PaperStyled>
+    </LoginLayout>
+  );
+};
+
+export default LoginPage;
