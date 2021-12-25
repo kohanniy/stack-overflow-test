@@ -1,7 +1,7 @@
+import { ChildrenType } from '../../utils/types';
 import { Main, ContainerStyled } from './Styles';
-import { LoginLayoutProps } from './Types';
 
-const LoginLayout = (props: LoginLayoutProps) => {
+const LoginLayout = (props: ChildrenType) => {
   const { children } = props;
 
   return (

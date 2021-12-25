@@ -1,4 +1,6 @@
 {
   "authButtonText": "Авторизоваться",
-  "loginPageText": "Для входа в приложение\n авторизуйтесь в Stack Overflow"
+  "loginPageText": "Для входа в приложение\n авторизуйтесь в Stack Overflow",
+  "logoutButtonText": "Выйти",
+  "madeBy": "Сделал Вячеслав Коханный"
 }

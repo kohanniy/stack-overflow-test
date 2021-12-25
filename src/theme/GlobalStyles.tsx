@@ -8,6 +8,9 @@ const GlobalStyles = () => {
           margin: 0,
           padding: 0,
         },
+        'header, footer': {
+          flexShrink: 0,
+        },
         '#root': {
           minHeight: '100vh',
           display: 'flex',
