@@ -13,3 +13,4 @@ export type LocationState = {
 export type ChildrenType = {
   children: ReactNode | ReactNode[];
 }
+

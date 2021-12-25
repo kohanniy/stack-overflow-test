@@ -14,7 +14,7 @@ const ElevationScroll = (props: Props) => {
   });
 
   return cloneElement(children, {
-    elevation: trigger ? 4 : 1,
+    elevation: trigger ? 4 : 0,
   });
 };
 

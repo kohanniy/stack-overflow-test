@@ -1,5 +1,5 @@
-import { PaperProps } from "@mui/material";
-import { IAccessToken } from "../../utils/types";
+import { PaperProps } from '@mui/material';
+import { IAccessToken } from '../../utils/types';
 
 export interface PaperStyledProps extends PaperProps {
   error?: boolean;

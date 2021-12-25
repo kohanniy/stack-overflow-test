@@ -1,10 +1,11 @@
 import { Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { AppBar, Toolbar, Button, Typography, Stack } from '@mui/material';
+import { AppBar, Typography, Stack } from '@mui/material';
 import ElevationScroll from './ElevationScroll';
 import { ToolbarStyled } from './Styles';
 import { GeneralLayoutProps } from './Types';
 import { StackOverflowIcon } from '../../assets/Icons';
+import LogoutButton from '../../components/LogoutButton';
 
 const GeneralLayout = (props: GeneralLayoutProps) => {
   const { onLogoutButtonClick } = props;
@@ -14,12 +15,10 @@ const GeneralLayout = (props: GeneralLayoutProps) => {
   return (
     <>
       <ElevationScroll>
-        <AppBar position='sticky' color='transparent'>
+        <AppBar position='sticky' sx={{ bgcolor: 'common.white' }}>
           <ToolbarStyled>
             <StackOverflowIcon width={200} />
-            <Button variant='outlined' onClick={onLogoutButtonClick}>
-              {t('logoutButtonText')}
-            </Button>
+            <LogoutButton onClick={onLogoutButtonClick} />
           </ToolbarStyled>
         </AppBar>
       </ElevationScroll>
@@ -27,9 +26,9 @@ const GeneralLayout = (props: GeneralLayoutProps) => {
         <Outlet />
       </Stack>
       <AppBar position='static' component='footer' color='transparent'>
-        <Toolbar>
+        <ToolbarStyled>
           <Typography>&copy; {t('madeBy')}</Typography>
-        </Toolbar>
+        </ToolbarStyled>
       </AppBar>
     </>
   );

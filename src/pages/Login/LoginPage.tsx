@@ -6,13 +6,7 @@ import { PaperStyled, typographyStyles } from './Styles';
 import { AuthButtonProps, IAuthError, LoginPageProps } from './Types';
 import LoginLayout from '../../layouts/LoginLayout';
 import { StackOverflowIcon } from '../../assets/Icons';
-import { pathnames } from '../../utils/constants';
-
-const AUTH_URL = 'https://stackoverflow.com/oauth/dialog';
-const CLIENT_ID = '22525';
-const REDIRECT_URI = `http://localhost:3000/${pathnames.login}`;
-const RES_TYPE = 'token';
-const SCOPE = 'write_access';
+import { AUTH_URL, CLIENT_ID, REDIRECT_URI, RES_TYPE, SCOPE } from '../../utils/constants';
 
 const renderAuthButton =
   (error: IAuthError | null) =>

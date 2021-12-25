@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAppSelector } from '../../app/hooks';
-import { selectLoggedIn } from '../../slices/authenticationSlice';
+import { selectLoggedIn } from '../../app/slices/authenticationSlice';
 import { pathnames } from '../../utils/constants';
 import { ProtectedLayoutProps } from './Types';
 

@@ -1,0 +1,1 @@
+export { getQuestionsWorker } from './getQuestionsWorker';

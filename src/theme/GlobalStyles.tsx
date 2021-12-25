@@ -1,6 +1,7 @@
-import { GlobalStyles as MuiGlobalStyles } from '@mui/material';
+import { GlobalStyles as MuiGlobalStyles, useTheme } from '@mui/material';
 
 const GlobalStyles = () => {
+  const theme = useTheme();
   return (
     <MuiGlobalStyles
       styles={{
@@ -14,7 +15,8 @@ const GlobalStyles = () => {
         '#root': {
           minHeight: '100vh',
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
+          rowGap: theme.spacing(2)
         },
       }}
     />
