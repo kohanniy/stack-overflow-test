@@ -3,12 +3,14 @@ import { RootState } from '../store';
 
 export interface IQuestionsState {
   items: Array<{ [n: string]: any }> | null;
+  itemsPerPage: number;
   error: { message?: string } | null;
   status: 'idle' | 'loading' | 'success' | 'error'
 }
 
 const initialState: IQuestionsState = {
   items: null,
+  itemsPerPage: 15,
   error: null,
   status: 'idle'
 };

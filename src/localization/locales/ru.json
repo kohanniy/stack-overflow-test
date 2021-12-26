@@ -3,5 +3,6 @@
   "loginPageText": "Для входа в приложение\n авторизуйтесь в Stack Overflow",
   "logoutButtonText": "Выйти",
   "madeBy": "Сделал Вячеслав Коханный",
-  "questions": "Вопросы"
+  "questions": "Вопросы",
+  "replies": "Ответов"
 }

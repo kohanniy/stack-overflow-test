@@ -10,7 +10,9 @@ import QuestionsList from '../../components/QuestionsList';
 const QuestionsPage = () => {
   const { t } = useTranslation();
 
-  const { items: questions, error, status } = useAppSelector(selectQuestionsQuery);
+  let page = 1;
+
+  const { items: questions, itemsPerPage, error, status } = useAppSelector(selectQuestionsQuery);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
