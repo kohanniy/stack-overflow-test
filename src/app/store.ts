@@ -8,7 +8,7 @@ import createSagaMiddleware from 'redux-saga';
 import counterReducer from '../features/counter/counterSlice';
 import authenticationReducer from './slices/authenticationSlice';
 import questionsReducer from './slices/questionsSlice';
-import { rootSaga } from './rootSaga';
+import { rootSaga } from './sagas/rootSaga';
 
 const sagaMiddleware = createSagaMiddleware();
 
