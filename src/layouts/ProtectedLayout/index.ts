@@ -1,3 +1,3 @@
-import ProtectedLayout from "./ProtectedLayout";
+import ProtectedLayout from './ProtectedLayout';
 
 export default ProtectedLayout;

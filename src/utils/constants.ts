@@ -16,3 +16,4 @@ export const SITE = 'stackoverflow';
 export const CLIENT_ID = '22525';
 export const RES_TYPE = 'token';
 export const SCOPE = 'write_access';
+export const REQ_FILTER = '!LaSRLv)Ii5)p4ZTu7f4*n2';

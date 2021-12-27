@@ -20,7 +20,10 @@ const reducer = combineReducers({
 
 export const store = configureStore({
   reducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ 
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: ['questions/isError'],
+    },
     // thunk: false 
   }).concat(sagaMiddleware)
 });

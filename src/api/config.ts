@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BASE_URL, API_KEY, ACCESS_TOKEN_KEY, SITE } from '../utils/constants';
+import { BASE_URL, API_KEY, ACCESS_TOKEN_KEY, SITE, REQ_FILTER } from '../utils/constants';
 
 export const mainApiInitialConfig = {
   baseURL: BASE_URL,
@@ -7,6 +7,8 @@ export const mainApiInitialConfig = {
     key: API_KEY,
     site: SITE,
     access_token: localStorage.getItem(ACCESS_TOKEN_KEY),
+    filter: REQ_FILTER,
+    impose_throttling: true
   }
 };
 

@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import ProtectedLayout from './layouts/ProtectedLayout';
 import GeneralLayout from './layouts/GeneralLayout';
@@ -19,7 +19,10 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = (location.state as LocationState)?.from?.pathname || pathnames.home;
+  const from =
+    `${(location.state as LocationState)?.from?.pathname}${
+      (location.state as LocationState)?.from?.search
+    }` || pathnames.home;
 
   const handleLogin = ({ access_token: token }: IAccessToken) => {
     localStorage.setItem(ACCESS_TOKEN_KEY, token);
@@ -34,15 +37,18 @@ function App() {
   };
 
   // checking for an access token
-  useLayoutEffect(() => {
+  useEffect(() => {
     const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
     const path = location.pathname;
+    const search = location.search;
 
     if (accessToken) {
       dispatch(login());
-      path === pathnames.login && navigate(pathnames.home);
+      path === pathnames.login
+        ? navigate(pathnames.home)
+        : navigate(`${path}${search}`);
     }
-  }, [dispatch, location.pathname, navigate]);
+  }, [dispatch, location.pathname, location.search, navigate]);
 
   return (
     <Routes>

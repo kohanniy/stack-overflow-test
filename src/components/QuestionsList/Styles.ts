@@ -11,7 +11,14 @@ export const ListStyled = styled(List)<ListProps>(({ theme }) => ({
 export const ListItemStyled = styled(ListItem)<ListItemProps>(({ theme }) => ({
   paddingTop: theme.spacing(1.5),
   paddingBottom: theme.spacing(1.5),
-  columnGap: theme.spacing(2),
+  gap: theme.spacing(2),
+
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    paddingTop: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
+  }
 }));
 
 export const AnswerCountContainer = styled(Stack, {
@@ -27,5 +34,23 @@ export const AnswerCountContainer = styled(Stack, {
     backgroundColor: theme.palette.success.main,
     color: theme.palette.common.white,
     borderColor: theme.palette.success.main,
-  })
+  }),
+
+  [theme.breakpoints.down('sm')]: {
+    order: 1,
+    width: '100%'
+  }
 }));
+
+export const Tags = styled(List)<ListProps>(({ theme }) => ({
+  display: 'flex',
+  flexWrap: 'wrap',
+}));
+
+export const TagItem = styled(ListItem)<ListItemProps>(({ theme }) => ({
+  width: 'auto',
+  paddingTop: '8px',
+  paddingBottom: 0,
+  paddingLeft: 0,
+  paddingRight: '8px'
+}))

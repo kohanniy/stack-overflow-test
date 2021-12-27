@@ -6,7 +6,7 @@ const FullPageLoading = () => {
     <RootContainer>
       <CircularProgress />
     </RootContainer>
-  )
+  );
 };
 
-export default FullPageLoading
+export default FullPageLoading;
