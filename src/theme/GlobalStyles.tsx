@@ -19,6 +19,10 @@ const GlobalStyles = () => {
           flexDirection: 'column',
           rowGap: theme.spacing(2)
         },
+        img: {
+          display: 'block',
+          maxWidth: '100%'
+        }
       }}
     />
   );

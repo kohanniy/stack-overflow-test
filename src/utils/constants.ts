@@ -1,3 +1,5 @@
+import { t } from 'i18next';
+
 export const pathnames = {
   home: '/',
   login: '/login'
@@ -18,3 +20,49 @@ export const CLIENT_ID = '22525';
 export const RES_TYPE = 'token';
 export const SCOPE = 'write_access';
 export const REQ_FILTER = '!LaSRLv)Ii5)p4ZTu7f4*n2';
+
+export const pageSizes = [
+  {
+    id: 1,
+    value: 15,
+    label: 15,
+  },
+  {
+    id: 2,
+    value: 30,
+    label: 30,
+  },
+  {
+    id: 3,
+    value: 50,
+    label: 50,
+  },
+];
+
+export const sortingQuestionsOptions = [
+  {
+    id: 1,
+    value: 'creation',
+    label: t('newest'),
+  },
+  {
+    id: 2,
+    value: 'activity',
+    label: t('activity'),
+  },
+  {
+    id: 3,
+    value: 'votes',
+    label: t('votes'),
+  },
+  {
+    id: 4,
+    value: 'week',
+    label: t('week'),
+  },
+  {
+    id: 5,
+    value: 'month',
+    label: t('month'),
+  },
+];

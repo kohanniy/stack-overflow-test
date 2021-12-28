@@ -1,9 +1,15 @@
 import { AxiosRequestConfig } from 'axios';
 import { t } from 'i18next';
+import { ACCESS_TOKEN_KEY } from '../utils/constants';
 import mainApi from './config';
 
 const handleRequestError = (err: any) => {
   if (err.response) {
+    if (err.response.data.error_name === 'access_denied') {
+      localStorage.removeItem(ACCESS_TOKEN_KEY);
+      return;
+    }
+    
     throw new Error(err.response.data.error_message);
   } else if (err.request) {
     throw new Error(t('server_not_responding'))

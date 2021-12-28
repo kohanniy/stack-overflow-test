@@ -18,6 +18,7 @@ export const Tab = styled(TabUnstyled, {
   userSelect: 'none',
   verticalAlign: 'middle',
   ...theme.typography.button,
+  textTransform: 'none',
   fontWeight: 400,
   borderRadius: theme.shape.borderRadius,
   textAlign: 'center',

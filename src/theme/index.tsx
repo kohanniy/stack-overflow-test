@@ -8,22 +8,25 @@ type MuiThemeProps = {
   children: ReactNode | ReactNode[];
 };
 
-const theme = createTheme({
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
+const theme = createTheme(
+  {
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            textTransform: 'none',
+          },
         },
       },
     },
-  },
-  palette: {
-    text: {
-      primary: '#000',
+    palette: {
+      text: {
+        primary: '#000',
+      },
     },
   },
-}, ruRU);
+  ruRU
+);
 
 const MuiThemeProvider = ({ children }: MuiThemeProps) => {
   return (

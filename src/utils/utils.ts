@@ -1,0 +1,1 @@
+export const toString = (value: any) => typeof value === 'string' ? value : String(value)

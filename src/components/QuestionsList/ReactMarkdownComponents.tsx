@@ -13,3 +13,4 @@ export const PDescComponent = ({ children }: any) => (
 export const LiComponent = ({ children }: any) => (
   <ListItem sx={(theme) => ({ ...theme.typography.body2 })}>{children[0]}</ListItem>
 );
+
