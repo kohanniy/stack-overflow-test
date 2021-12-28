@@ -1,16 +1,13 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Button, Stack, StackProps, Typography, useMediaQuery } from '@mui/material';
+import { Button, Stack, StackProps, Typography, useMediaQuery, Chip } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
   reset,
   selectQuestionsQuery,
-  setPage,
-  setPagesize,
-  setSort,
-  triggerForGetQuestions,
+  setQuestionsQueryParams,
 } from '../../app/slices/questionsSlice';
 import { ContainerStyled } from './Styles';
 import FullPageLoading from '../../components/FullPageLoading';
@@ -36,6 +33,8 @@ const ResponsiveWrapper = (props: StackProps) => {
 };
 
 const QuestionsPage = () => {
+  const [totalPages, setTotalPages] = useState<number>(0);
+
   const { t } = useTranslation();
 
   const {
@@ -46,40 +45,46 @@ const QuestionsPage = () => {
     error,
     status,
     sort,
+    tagged,
   } = useAppSelector(selectQuestionsQuery);
   const dispatch = useAppDispatch();
 
-  const searchParamsObj = { page: String(page), pagesize: String(pagesize), sort };
+  const searchParamsObj = { page: String(page), pagesize: String(pagesize), sort, tagged };
 
   const [searchParams, setSearchParams] = useSearchParams(searchParamsObj);
   const navigate = useNavigate();
 
-  const [totalPages, setTotalPages] = useState<number>(0);
-
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    setSearchParams({ ...searchParamsObj, page: String(page) });
-    dispatch(setPage(page));
-    dispatch(triggerForGetQuestions());
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setSearchParams({ ...searchParamsObj, page: String(value) });
+    dispatch(setQuestionsQueryParams({ page: value }));
   };
 
   const handlePagesizeChange = (event: SyntheticEvent<Element, Event>, value: string | number) => {
     const pagesize = toString(value);
     setSearchParams({ ...searchParamsObj, pagesize });
-    dispatch(setPagesize(value));
-    dispatch(triggerForGetQuestions());
+    dispatch(setQuestionsQueryParams({ pagesize: value }));
   };
 
   const handleSortChange = (event: SyntheticEvent<Element, Event>, value: string | number) => {
     const sort = toString(value);
     setSearchParams({ ...searchParamsObj, sort });
-    dispatch(setSort(value));
-    dispatch(triggerForGetQuestions());
+    dispatch(setQuestionsQueryParams({ sort: value }));
+  };
+
+  const handleTagClick = (tag: string) => {
+    setSearchParams({ ...searchParamsObj, tagged: tag });
+    dispatch(setQuestionsQueryParams({ tagged: tag }));
+  };
+
+  const handleResetTag = () => {
+    setSearchParams({ ...searchParamsObj, tagged: '' });
+    dispatch(setQuestionsQueryParams({ tagged: '' }));
   };
 
   const handleResetSettings = () => {
     dispatch(reset());
     navigate('/');
-    dispatch(triggerForGetQuestions());
+    dispatch(setQuestionsQueryParams({ page, pagesize, sort, tagged }));
   };
 
   // get questions
@@ -88,12 +93,9 @@ const QuestionsPage = () => {
       const page = Number(searchParams.get('page'));
       const pagesize = Number(searchParams.get('pagesize'));
       const sort = searchParams.get('sort');
+      const tagged = searchParams.get('tagged');
 
-      dispatch(setPage(page));
-      dispatch(setPagesize(pagesize));
-      dispatch(setSort(sort));
-
-      dispatch(triggerForGetQuestions());
+      dispatch(setQuestionsQueryParams({ page, pagesize, sort, tagged }));
     }
   }, [dispatch, questions.length, searchParams, status]);
 
@@ -104,14 +106,9 @@ const QuestionsPage = () => {
 
   return (
     <ContainerStyled maxWidth='lg' component='section' sx={{ flexGrow: 1 }}>
-      <ResponsiveWrapper>
-        <Typography variant='h5' component='h2'>
-          {t('questions')}
-        </Typography>
-        {questions.length > 0 && status === 'success' && (
-          <QuestionsTabs items={sortingQuestionsOptions} value={sort} onChange={handleSortChange} />
-        )}
-      </ResponsiveWrapper>
+      <Typography variant='h5' component='h2'>
+        {t('questions')}
+      </Typography>
       {status === 'loading' && <FullPageLoading />}
       {status === 'error' && <Typography sx={{ color: 'error.main' }}>{error!.message}</Typography>}
       {questions.length === 0 && status === 'success' && (
@@ -123,16 +120,26 @@ const QuestionsPage = () => {
         </ResponsiveWrapper>
       )}
       {status === 'success' && questions.length > 0 && (
-        <>
-          <QuestionsList questions={questions} />
+        <Stack spacing={2}>
+          <ResponsiveWrapper>
+            <QuestionsTabs
+              items={sortingQuestionsOptions}
+              value={sort}
+              onChange={handleSortChange}
+            />
+            {tagged !== '' && <Chip label={tagged} variant='outlined' onDelete={handleResetTag} />}
+          </ResponsiveWrapper>
+          <QuestionsList questions={questions} onTagClick={handleTagClick} />
           <ResponsiveWrapper>
             <QuestionsPagination page={page} count={totalPages} onChange={handlePageChange} />
-            <Stack direction='row' spacing={1.5} alignItems='center'>
+            <Stack direction='row' spacing={1} alignItems='center'>
               <QuestionsTabs items={pageSizes} onChange={handlePagesizeChange} value={pagesize} />
-              <Typography variant='caption'>{t('questions_on_page')}</Typography>
+              <Typography sx={{ lineHeight: 1 }} variant='caption'>
+                {t('questions_on_page')}
+              </Typography>
             </Stack>
           </ResponsiveWrapper>
-        </>
+        </Stack>
       )}
     </ContainerStyled>
   );

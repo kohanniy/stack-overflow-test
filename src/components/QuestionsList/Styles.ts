@@ -18,6 +18,7 @@ export const ListItemStyled = styled(ListItem)<ListItemProps>(({ theme }) => ({
     paddingTop: 0,
     paddingLeft: 0,
     paddingRight: 0,
+    alignItems: 'flex-start',
   }
 }));
 

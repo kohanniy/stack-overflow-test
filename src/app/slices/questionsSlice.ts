@@ -1,4 +1,4 @@
-import { createAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 export interface IQuestionsState {
@@ -9,6 +9,7 @@ export interface IQuestionsState {
   status: 'idle' | 'loading' | 'success' | 'error',
   total: number,
   sort: string,
+  tagged: string,
 }
 
 const initialState: IQuestionsState = {
@@ -18,7 +19,8 @@ const initialState: IQuestionsState = {
   error: null,
   status: 'idle',
   total: 0,
-  sort: 'creation'
+  sort: 'creation',
+  tagged: '',
 };
 
 export const questionsSlice = createSlice({
@@ -39,31 +41,26 @@ export const questionsSlice = createSlice({
       error: { message: action.payload.message },
       items: [],
     }),
-    setPage: (state, action) => ({
+    setQuestionsQueryParams: (state, action) => ({
       ...state,
-      page: action.payload,
+      ...action.payload,
     }),
-    setPagesize: (state, action) => ({
+    getQuestionsReducer: (state, action) => ({
       ...state,
-      pagesize: action.payload,
+      ...action.payload,
     }),
-    setSort: (state, action) => ({
-      ...state,
-      sort: action.payload,
-    }),
-    getQuestionsReducer: (state, action) => {
-      const { items, total } = action.payload;
-      console.log(action.payload);
-
-      return { ...state, items, total }
-    },
     reset: () => initialState
   },
 });
 
-export const triggerForGetQuestions = createAction('questions/triggerForGetQuestions');
-
-export const { isLoading, isSuccess, isError, reset, setPage, setPagesize, setSort, getQuestionsReducer } = questionsSlice.actions;
+export const {
+  isLoading,
+  isSuccess,
+  isError,
+  reset,
+  setQuestionsQueryParams,
+  getQuestionsReducer
+} = questionsSlice.actions;
 
 export const selectQuestionsQuery = (state: RootState) => state.questions;
 

@@ -6,7 +6,7 @@ const QuestionsTabs = (props: QuestionsTabsProps) => {
   const { onChange, value, items } = props;
 
   return (
-    <TabsUnstyled value={value} onChange={onChange}>
+    <TabsUnstyled style={{ flexShrink: 0 }} value={value} onChange={onChange}>
       <TabsList>
         {items.map((item) => (
           <Tab key={item.id} selected={value === item.value} value={item.value}>

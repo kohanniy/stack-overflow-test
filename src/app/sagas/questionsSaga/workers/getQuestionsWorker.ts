@@ -5,12 +5,12 @@ import { requestPathNames } from '../../../../utils/constants';
 import { BackendType } from '../../../../utils/types';
 
 export function* getQuestionsWorker() {
-  const { page, pagesize, sort } = yield select(selectQuestionsQuery);
+  const { page, pagesize, sort, tagged } = yield select(selectQuestionsQuery);
 
   yield put(isLoading());
 
   try {
-    const response: BackendType = yield call(getData, requestPathNames.questions, { params: { page, pagesize, sort } });
+    const response: BackendType = yield call(getData, requestPathNames.questions, { params: { page, pagesize, sort, tagged } });
 
     yield put(getQuestionsReducer(response));
 

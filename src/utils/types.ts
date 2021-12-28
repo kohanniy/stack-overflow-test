@@ -15,7 +15,7 @@ export type ChildrenType = {
   children: ReactNode | ReactNode[];
 }
 
-export type BackendType = {
+export interface BackendType {
   [n: string]: Array<{[n: string]: any}>
 }
 

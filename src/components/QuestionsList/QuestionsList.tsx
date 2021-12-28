@@ -3,11 +3,16 @@ import { useTranslation } from 'react-i18next';
 import { Chip, Stack, Typography, Link, Box } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
 import { ListStyled, ListItemStyled, AnswerCountContainer, Tags, TagItem } from './Styles';
-import { BackendType } from '../../utils/types';
-import { PTitleComponent, PDescComponent, LiComponent } from './ReactMarkdownComponents';
+import {
+  PTitleComponent,
+  PDescComponent,
+  LiComponent,
+  CodeComponent,
+} from './ReactMarkdownComponents';
+import { QuestionsListProps } from './Types';
 
-const QuestionsList = (props: BackendType) => {
-  const { questions } = props;
+const QuestionsList = (props: QuestionsListProps) => {
+  const { questions, onTagClick } = props;
 
   const { t } = useTranslation();
 
@@ -41,18 +46,19 @@ const QuestionsList = (props: BackendType) => {
               <Box>
                 <ReactMarkdown
                   linkTarget='_blank'
-                  disallowedElements={['pre', 'code']}
+                  disallowedElements={['pre']}
                   skipHtml
                   components={{
                     p: PDescComponent,
                     li: LiComponent,
+                    code: CodeComponent,
                   }}
                 >{`${description}${threeDots}`}</ReactMarkdown>
               </Box>
               <Tags disablePadding>
                 {question.tags.map((tag: string) => (
                   <TagItem key={tag}>
-                    <Chip size='small' label={tag} />
+                    <Chip size='small' label={tag} onClick={() => onTagClick(tag)} />
                   </TagItem>
                 ))}
               </Tags>
