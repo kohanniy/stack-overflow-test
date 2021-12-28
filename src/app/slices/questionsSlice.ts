@@ -43,6 +43,10 @@ export const questionsSlice = createSlice({
       ...state,
       page: action.payload,
     }),
+    setPagesize: (state, action) => ({
+      ...state,
+      pagesize: action.payload,
+    }),
     getQuestionsReducer: (state, action) => {
       const { items, total } = action.payload;
       console.log(action.payload);
@@ -55,7 +59,7 @@ export const questionsSlice = createSlice({
 
 export const triggerForGetQuestions = createAction('questions/triggerForGetQuestions');
 
-export const { isLoading, isSuccess, isError, reset, setPage, getQuestionsReducer } = questionsSlice.actions;
+export const { isLoading, isSuccess, isError, reset, setPage, setPagesize, getQuestionsReducer } = questionsSlice.actions;
 
 export const selectQuestionsQuery = (state: RootState) => state.questions;
 

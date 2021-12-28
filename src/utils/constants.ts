@@ -7,6 +7,7 @@ export const requestPathNames = {
   questions: '/questions'
 }
 
+export const PAGE_SIZE_KEY = 'pagesize';
 export const ACCESS_TOKEN_KEY = 'access_token';
 export const API_KEY = 'MYJqto3gcdV8nyRvHQz*rQ((';
 export const AUTH_URL = 'https://stackoverflow.com/oauth/dialog';
