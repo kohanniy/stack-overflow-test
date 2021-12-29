@@ -38,10 +38,11 @@ function App() {
   useEffect(() => {
     const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
     const path = location.pathname;
+    const search = location.search;
 
     if (accessToken) {
       dispatch(login());
-      path === pathnames.login && navigate(pathnames.home);
+      path === pathnames.login ? navigate(pathnames.home) : navigate(`${path}${search}`);
     }
   }, [dispatch, location.pathname, location.search, navigate]);
 
