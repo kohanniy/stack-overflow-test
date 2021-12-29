@@ -95,6 +95,15 @@ const QuestionsPage = () => {
       const sort = searchParams.get('sort');
       const tagged = searchParams.get('tagged');
 
+      console.log('page', page);
+      console.log('pagesize', pagesize);
+      console.log('sort', sort);
+      console.log('tagged', tagged);
+      
+      
+      
+      
+
       dispatch(setQuestionsQueryParams({ page, pagesize, sort, tagged }));
     }
   }, [dispatch, searchParams, status]);
