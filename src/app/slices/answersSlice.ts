@@ -3,10 +3,16 @@ import { RootState } from '../store';
 
 export interface IAnswersState {
   items: Array<{ [n: string]: any }>;
+  question: {
+    tags: string[];
+    body_markdown: string;
+    title: string;
+  } | null;
 }
 
 const initialState: IAnswersState = {
   items: [],
+  question: null,
 };
 
 export const answersSlice = createSlice({
@@ -15,9 +21,11 @@ export const answersSlice = createSlice({
   reducers: {
     getAnswersReducer: (state, action) => {
       console.log('reducer', action.payload);
+      const { question, answers: items } = action.payload;
       return {
         ...state,
-        items: action.payload.items
+        items,
+        question,
       }
     },
     reset: () => initialState
@@ -31,6 +39,6 @@ export const {
   getAnswersReducer
 } = answersSlice.actions;
 
-export const selectAnswers = (state: RootState) => state.answers.items;
+export const selectAnswersQuery = (state: RootState) => state.answers;
 
 export default answersSlice.reducer;

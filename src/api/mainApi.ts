@@ -9,6 +9,7 @@ const handleRequestError = (err: any) => {
       localStorage.removeItem(ACCESS_TOKEN_KEY);
       return;
     }
+    console.log(err.response.data);
     
     throw new Error(err.response.data.error_message);
   } else if (err.request) {

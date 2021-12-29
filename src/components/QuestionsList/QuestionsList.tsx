@@ -1,15 +1,17 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Chip, Stack, Typography, Link, Box } from '@mui/material';
+import { Stack, Typography, Link, Box } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import { ListStyled, ListItemStyled, AnswerCountContainer, Tags, TagItem } from './Styles';
+import { ListStyled, ListItemStyled, AnswerCountContainer } from './Styles';
 import {
   PTitleComponent,
   PDescComponent,
   LiComponent,
   CodeComponent,
-} from './ReactMarkdownComponents';
+} from '../../assets/ReactMarkdownComponents';
+import Tags from '../Tags';
 import { QuestionsListProps } from './Types';
+import { convertMnemonics } from '../../utils/utils';
 
 const QuestionsList = (props: QuestionsListProps) => {
   const { questions, onTagClick } = props;
@@ -40,28 +42,23 @@ const QuestionsList = (props: QuestionsListProps) => {
                     p: PTitleComponent,
                   }}
                 >
-                  {question.title}
+                  {convertMnemonics(question.title)}
                 </ReactMarkdown>
               </Link>
               <Box>
                 <ReactMarkdown
                   linkTarget='_blank'
                   disallowedElements={['pre']}
-                  skipHtml
                   components={{
                     p: PDescComponent,
                     li: LiComponent,
                     code: CodeComponent,
                   }}
-                >{`${description}${threeDots}`}</ReactMarkdown>
+                >
+                  {convertMnemonics(`${description}${threeDots}`)}
+                </ReactMarkdown>
               </Box>
-              <Tags disablePadding>
-                {question.tags.map((tag: string) => (
-                  <TagItem key={tag}>
-                    <Chip size='small' label={tag} onClick={() => onTagClick(tag)} />
-                  </TagItem>
-                ))}
-              </Tags>
+              <Tags tags={question.tags} onTagClick={onTagClick} />
             </Stack>
           </ListItemStyled>
         );

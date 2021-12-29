@@ -9,7 +9,6 @@ import {
   selectQuestionsQuery,
   setQuestionsQueryParams,
 } from '../../app/slices/questionsSlice';
-import { ContainerStyled } from './Styles';
 import FullPageLoading from '../../components/FullPageLoading';
 import QuestionsList from '../../components/QuestionsList';
 import Pagination from '../../components/Pagination';
@@ -17,6 +16,7 @@ import AppTabs from '../../components/AppTabs';
 import { pageSizes, sortingQuestionsOptions } from '../../utils/constants';
 import { toString } from '../../utils/utils';
 import { selectRequestState } from '../../app/slices/requestStateSlice';
+import Section from '../../components/Section';
 
 const ResponsiveWrapper = (props: StackProps) => {
   const theme = useTheme();
@@ -89,7 +89,7 @@ const QuestionsPage = () => {
 
   // get questions
   useEffect(() => {
-    if (questions.length === 0 && status === 'idle') {
+    if (questions.length === 0) {
       const page = Number(searchParams.get('page'));
       const pagesize = Number(searchParams.get('pagesize'));
       const sort = searchParams.get('sort');
@@ -105,7 +105,7 @@ const QuestionsPage = () => {
   }, [pagesize, total]);
 
   return (
-    <ContainerStyled maxWidth='lg' component='section' sx={{ flexGrow: 1 }}>
+    <Section>
       <Typography variant='h5' component='h2'>
         {t('questions')}
       </Typography>
@@ -141,7 +141,7 @@ const QuestionsPage = () => {
           </ResponsiveWrapper>
         </Stack>
       )}
-    </ContainerStyled>
+    </Section>
   );
 };
 

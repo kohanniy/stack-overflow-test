@@ -7,7 +7,9 @@ export const pathnames = {
 
 export const requestPathNames = (id?: string) => ({
   questions: '/questions',
-  answers: `questions/${id}/answers`
+  question: `/questions/${id}`,
+  answers: `questions/${id}/answers`,
+  add_answer: `/questions/${id}/answers/render`
 });
 
 export const PAGE_SIZE_KEY = 'pagesize';
@@ -22,6 +24,8 @@ export const RES_TYPE = 'token';
 export const SCOPE = 'write_access';
 export const QUESTIONS_FILTER = '!LaSRLv)Ii5)p4ZTu7f4*n2';
 export const ANSWERS_FILTER = '!szz-qBaE3f(gpgZ_yc4sKqxSXj(yO1b';
+export const QUESTION_FILTER = '!17mFf6QJCC)Z--yt7B).KO2ctBm9uKX6Tocennz)AbpkFz';
+export const ADD_ANSWER_FILTER = '!)Q0*KwWhDjx2)Qc)-f5zKIGr';
 
 export const pageSizes = [
   {
