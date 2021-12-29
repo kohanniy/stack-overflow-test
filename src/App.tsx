@@ -8,7 +8,7 @@ import NotFound from './pages/NotFound';
 import LoginPage from './pages/Login';
 import { useAppDispatch } from './app/hooks';
 import { login, logout } from './app/slices/authenticationSlice';
-import { ACCESS_TOKEN_KEY, PAGE_SIZE_KEY, pathnames } from './utils/constants';
+import { ACCESS_TOKEN_KEY, pathnames } from './utils/constants';
 import { IAccessToken, LocationState } from './utils/types';
 
 function App() {
@@ -17,9 +17,9 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const stateFrom = (location.state as LocationState)?.from;
+  const stateFrom = (location.state as LocationState)?.from;  
 
-  const from = `${stateFrom?.pathname}${stateFrom?.search}` || pathnames.home;
+  const from = stateFrom ? `${stateFrom?.pathname}${stateFrom?.search}` : pathnames.home;
 
   const handleLogin = ({ access_token: token }: IAccessToken) => {
     localStorage.setItem(ACCESS_TOKEN_KEY, token);
@@ -31,7 +31,6 @@ function App() {
     navigate(pathnames.login);
     dispatch(logout());
     localStorage.removeItem(ACCESS_TOKEN_KEY);
-    localStorage.removeItem(PAGE_SIZE_KEY);
   };
 
   // checking for an access token
@@ -39,7 +38,7 @@ function App() {
     const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
     const path = location.pathname;
     const search = location.search;
-
+    
     if (accessToken) {
       dispatch(login());
       path === pathnames.login ? navigate(pathnames.home) : navigate(`${path}${search}`);
