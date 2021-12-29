@@ -89,7 +89,7 @@ const QuestionsPage = () => {
 
   // get questions
   useEffect(() => {
-    if (questions.length === 0) {
+    if (status === 'idle') {
       const page = Number(searchParams.get('page'));
       const pagesize = Number(searchParams.get('pagesize'));
       const sort = searchParams.get('sort');
@@ -97,7 +97,7 @@ const QuestionsPage = () => {
 
       dispatch(setQuestionsQueryParams({ page, pagesize, sort, tagged }));
     }
-  }, [dispatch, questions.length, searchParams, status]);
+  }, [dispatch, searchParams, status]);
 
   // calculate the number of pages
   useEffect(() => {
