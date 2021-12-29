@@ -1,10 +1,10 @@
-import { Pagination, PaginationProps } from '@mui/material';
+import { Pagination as MuiPagination, PaginationProps } from '@mui/material';
 
-const QuestionsPagination = (props: PaginationProps) => {
+const Pagination = (props: PaginationProps) => {
   const { page, count, onChange } = props;
 
   return (
-    <Pagination
+    <MuiPagination
       sx={{
         '& .MuiPagination-ul': {
           rowGap: 1,
@@ -20,4 +20,4 @@ const QuestionsPagination = (props: PaginationProps) => {
   );
 };
 
-export default QuestionsPagination;
+export default Pagination;

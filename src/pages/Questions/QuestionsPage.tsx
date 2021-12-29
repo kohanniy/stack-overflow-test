@@ -12,10 +12,11 @@ import {
 import { ContainerStyled } from './Styles';
 import FullPageLoading from '../../components/FullPageLoading';
 import QuestionsList from '../../components/QuestionsList';
-import QuestionsPagination from '../../components/QuestionsPagination';
-import QuestionsTabs from '../../components/QuestionsTabs';
+import Pagination from '../../components/Pagination';
+import AppTabs from '../../components/AppTabs';
 import { pageSizes, sortingQuestionsOptions } from '../../utils/constants';
 import { toString } from '../../utils/utils';
+import { selectRequestState } from '../../app/slices/requestStateSlice';
 
 const ResponsiveWrapper = (props: StackProps) => {
   const theme = useTheme();
@@ -42,11 +43,10 @@ const QuestionsPage = () => {
     total,
     page,
     pagesize,
-    error,
-    status,
     sort,
     tagged,
   } = useAppSelector(selectQuestionsQuery);
+  const { error, status } = useAppSelector(selectRequestState);
   const dispatch = useAppDispatch();
 
   const searchParamsObj = { page: String(page), pagesize: String(pagesize), sort, tagged };
@@ -122,7 +122,7 @@ const QuestionsPage = () => {
       {status === 'success' && questions.length > 0 && (
         <Stack spacing={2}>
           <ResponsiveWrapper>
-            <QuestionsTabs
+            <AppTabs
               items={sortingQuestionsOptions}
               value={sort}
               onChange={handleSortChange}
@@ -131,9 +131,9 @@ const QuestionsPage = () => {
           </ResponsiveWrapper>
           <QuestionsList questions={questions} onTagClick={handleTagClick} />
           <ResponsiveWrapper>
-            <QuestionsPagination page={page} count={totalPages} onChange={handlePageChange} />
+            <Pagination page={page} count={totalPages} onChange={handlePageChange} />
             <Stack direction='row' spacing={1} alignItems='center'>
-              <QuestionsTabs items={pageSizes} onChange={handlePagesizeChange} value={pagesize} />
+              <AppTabs items={pageSizes} onChange={handlePagesizeChange} value={pagesize} />
               <Typography sx={{ lineHeight: 1 }} variant='caption'>
                 {t('questions_on_page')}
               </Typography>

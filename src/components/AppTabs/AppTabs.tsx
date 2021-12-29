@@ -1,8 +1,8 @@
 import { TabsUnstyled } from '@mui/material';
 import { TabsList, Tab } from './Styles';
-import { QuestionsTabsProps } from './Types';
+import { AppTabsProps } from './Types';
 
-const QuestionsTabs = (props: QuestionsTabsProps) => {
+const AppTabs = (props: AppTabsProps) => {
   const { onChange, value, items } = props;
 
   return (
@@ -18,4 +18,4 @@ const QuestionsTabs = (props: QuestionsTabsProps) => {
   );
 };
 
-export default QuestionsTabs;
+export default AppTabs;

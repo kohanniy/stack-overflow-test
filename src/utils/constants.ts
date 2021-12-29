@@ -5,9 +5,10 @@ export const pathnames = {
   login: '/login'
 };
 
-export const requestPathNames = {
-  questions: '/questions'
-}
+export const requestPathNames = (id?: string) => ({
+  questions: '/questions',
+  answers: `questions/${id}/answers`
+});
 
 export const PAGE_SIZE_KEY = 'pagesize';
 export const ACCESS_TOKEN_KEY = 'access_token';
@@ -19,7 +20,8 @@ export const SITE = 'stackoverflow';
 export const CLIENT_ID = '22525';
 export const RES_TYPE = 'token';
 export const SCOPE = 'write_access';
-export const REQ_FILTER = '!LaSRLv)Ii5)p4ZTu7f4*n2';
+export const QUESTIONS_FILTER = '!LaSRLv)Ii5)p4ZTu7f4*n2';
+export const ANSWERS_FILTER = '!szz-qBaE3f(gpgZ_yc4sKqxSXj(yO1b';
 
 export const pageSizes = [
   {

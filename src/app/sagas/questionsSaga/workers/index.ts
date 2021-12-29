@@ -1,1 +1,0 @@
-export { getQuestionsWorker } from './getQuestionsWorker';

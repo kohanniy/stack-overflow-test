@@ -3,15 +3,13 @@ import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import ProtectedLayout from './layouts/ProtectedLayout';
 import GeneralLayout from './layouts/GeneralLayout';
 import QuestionsPage from './pages/Questions';
-import Question from './pages/Question';
+import AnswersPage from './pages/Answers';
 import NotFound from './pages/NotFound';
 import LoginPage from './pages/Login';
 import { useAppDispatch } from './app/hooks';
 import { login, logout } from './app/slices/authenticationSlice';
 import { ACCESS_TOKEN_KEY, PAGE_SIZE_KEY, pathnames } from './utils/constants';
 import { IAccessToken, LocationState } from './utils/types';
-
-// import { Counter } from './features/counter/Counter';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -65,7 +63,7 @@ function App() {
           path=':id'
           element={
             <ProtectedLayout>
-              <Question />
+              <AnswersPage />
             </ProtectedLayout>
           }
         />
