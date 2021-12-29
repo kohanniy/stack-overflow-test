@@ -1,4 +1,4 @@
-import { createAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 export interface IQuestionsState {
@@ -29,13 +29,10 @@ export const questionsSlice = createSlice({
       ...state,
       ...action.payload,
     }),
-    getQuestionsReducer: (state, action) => {
-      console.log(action.payload);
-      return {
-        ...state,
-        ...action.payload,
-      }
-    },
+    getQuestionsReducer: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
     getAnswersReducer: (state, action) => {
       console.log('reducer', action.payload);
     },

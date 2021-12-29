@@ -5,7 +5,7 @@ export const pathnames = {
   login: '/login'
 };
 
-export const requestPathNames = (id?: string) => ({
+export const requestPathNames = (id?: string | number) => ({
   questions: '/questions',
   question: `/questions/${id}`,
   answers: `questions/${id}/answers`,
@@ -25,7 +25,7 @@ export const SCOPE = 'write_access';
 export const QUESTIONS_FILTER = '!LaSRLv)Ii5)p4ZTu7f4*n2';
 export const ANSWERS_FILTER = '!szz-qBaE3f(gpgZ_yc4sKqxSXj(yO1b';
 export const QUESTION_FILTER = '!17mFf6QJCC)Z--yt7B).KO2ctBm9uKX6Tocennz)AbpkFz';
-export const ADD_ANSWER_FILTER = '!)Q0*KwWhDjx2)Qc)-f5zKIGr';
+export const ADD_ANSWER_FILTER = '!Fc7.YG-_eN5gA3FVZ2ggUN_zVH';
 
 export const pageSizes = [
   {

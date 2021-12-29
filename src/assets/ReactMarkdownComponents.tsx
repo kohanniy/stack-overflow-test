@@ -12,7 +12,7 @@ const PreStyled = styled('pre')(({ theme }) => ({
   maxWidth: '100%',
   backgroundColor: alpha(theme.palette.common.black, 0.1),
   overflow: 'auto',
-  borderRadius: '20px',
+  borderRadius: '10px',
   padding: theme.spacing(2),
 
   '& > code': {

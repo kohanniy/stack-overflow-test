@@ -9,7 +9,10 @@ const handleRequestError = (err: any) => {
       localStorage.removeItem(ACCESS_TOKEN_KEY);
       return;
     }
-    console.log(err.response.data);
+
+    if (err.response.data.error_message === 'POST methods expects all parameters to be submitted as a form, not on the query string') {
+      throw new Error('Чего я только не делал (пробовал отправлять данные в параметрах запроса, в теле запроса), отправлял на разные эндпойнты - все равно получаю вот эту ошибку "POST methods expects all parameters to be submitted as a form, not on the query string"')
+    }
     
     throw new Error(err.response.data.error_message);
   } else if (err.request) {
@@ -27,3 +30,12 @@ export const getData = async (path: string, config?: AxiosRequestConfig<any>) =>
     handleRequestError(err);
   }
 };
+
+export const addData = async (path: string, data: any, config?: AxiosRequestConfig<any>) => {
+  try {
+    const response = await mainApi.post(path, data, config);
+    return response.data;
+  } catch (err: any) {
+    handleRequestError(err);
+  }
+}

@@ -1,4 +1,5 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
+import { IAddAnswer } from '../../utils/types';
 import { RootState } from '../store';
 
 export interface IAnswersState {
@@ -8,19 +9,28 @@ export interface IAnswersState {
     body_markdown: string;
     title: string;
   } | null;
+  addAnswerStatus: 'idle' | 'loading' | 'success' | 'error',
 }
 
 const initialState: IAnswersState = {
   items: [],
   question: null,
+  addAnswerStatus: 'idle',
 };
 
 export const answersSlice = createSlice({
   name: 'answers',
   initialState,
   reducers: {
+    loading: (state) => ({
+      ...state,
+      addAnswerStatus: 'loading'
+    }),
+    success: (state) => ({
+      ...state,
+      addAnswerStatus: 'success'
+    }),
     getAnswersReducer: (state, action) => {
-      console.log('reducer', action.payload);
       const { question, answers: items } = action.payload;
       return {
         ...state,
@@ -33,10 +43,13 @@ export const answersSlice = createSlice({
 });
 
 export const getQuestionId = createAction<string | undefined>('answers/getQuestionId');
+export const addAnswer = createAction<IAddAnswer>('answers/addAnswers');
 
 export const {
   reset,
-  getAnswersReducer
+  getAnswersReducer,
+  loading,
+  success,
 } = answersSlice.actions;
 
 export const selectAnswersQuery = (state: RootState) => state.answers;

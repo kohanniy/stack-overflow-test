@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import { Typography, Stack, List } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { getQuestionId, selectAnswersQuery } from '../../app/slices/answersSlice';
+import { addAnswer, getQuestionId, selectAnswersQuery } from '../../app/slices/answersSlice';
 import { selectRequestState } from '../../app/slices/requestStateSlice';
 import Section from '../../components/Section';
 import FullPageLoading from '../../components/FullPageLoading';
@@ -18,18 +18,34 @@ import {
 import Tags from '../../components/Tags';
 import { PaperStyled, AnswerStyled } from './Styles';
 import { convertMnemonics } from '../../utils/utils';
+import AddAnswerForm from '../../components/AddAnswerForm';
+import SnackbarComponent from '../../components/SnackbarComponent';
 
 const AnswersPage = () => {
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
   const { status, error } = useAppSelector(selectRequestState);
-  const { question, items: answers } = useAppSelector(selectAnswersQuery);
+  const { question, items: answers, addAnswerStatus } = useAppSelector(selectAnswersQuery);
   const dispatch = useAppDispatch();
   const params = useParams();
   const { t } = useTranslation();
-  console.log(question);
 
+  const handleAddAnswer = (value: string) => {
+    dispatch(addAnswer({ id: Number(params.id), body: value }));
+  };
+
+  // get answers
   useEffect(() => {
     dispatch(getQuestionId(params.id));
   }, [dispatch, params.id]);
+
+  // when open snackbar
+  useEffect(() => {
+    if (addAnswerStatus === 'success') {
+      setSnackbarOpen(true);
+    } else {
+      setSnackbarOpen(false);
+    }
+  }, [addAnswerStatus]);
 
   return (
     <Section>
@@ -81,6 +97,18 @@ const AnswersPage = () => {
               </List>
             </Stack>
           )}
+          <Stack>
+            <Typography component='p' variant='h6'>
+              {t('add_answer')}
+            </Typography>
+            <AddAnswerForm loadingStatus={addAnswerStatus} onSubmit={handleAddAnswer} />
+          </Stack>
+          <SnackbarComponent
+            open={snackbarOpen}
+            onClose={() => setSnackbarOpen(false)}
+            severity='success'
+            alertText={t('answer_added')}
+          />
         </Stack>
       )}
     </Section>

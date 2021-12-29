@@ -17,7 +17,9 @@ const GeneralLayout = (props: GeneralLayoutProps) => {
       <ElevationScroll>
         <AppBar position='sticky' sx={{ bgcolor: 'common.white' }}>
           <ToolbarStyled>
-            <Link to='/'><StackOverflowIcon width={200} /></Link>
+            <Link to='/'>
+              <StackOverflowIcon width={200} />
+            </Link>
             <LogoutButton onClick={onLogoutButtonClick} />
           </ToolbarStyled>
         </AppBar>

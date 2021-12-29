@@ -19,3 +19,8 @@ export interface BackendType {
   [n: string]: Array<{[n: string]: any}>
 }
 
+export interface IAddAnswer {
+  id: number | string | undefined,
+  body: string,
+}
+

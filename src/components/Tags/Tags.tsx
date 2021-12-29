@@ -3,7 +3,7 @@ import { TagsStyled, TagItem } from './Styles';
 import { TagsProps } from './Types';
 
 const Tags = (props: TagsProps) => {
-  const { tags, onTagClick} = props;
+  const { tags, onTagClick } = props;
 
   return (
     <TagsStyled disablePadding>
