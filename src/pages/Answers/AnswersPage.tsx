@@ -30,7 +30,7 @@ const AnswersPage = () => {
   const { t } = useTranslation();
 
   const handleAddAnswer = (value: string) => {
-    dispatch(addAnswer({ id: Number(params.id), body: value }));
+    dispatch(addAnswer({ id: params.id, body: value }));
   };
 
   // get answers

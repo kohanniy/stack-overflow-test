@@ -15,7 +15,7 @@ export const requestPathNames = (id?: string | number) => ({
 export const ACCESS_TOKEN_KEY = 'access_token';
 export const API_KEY = 'MYJqto3gcdV8nyRvHQz*rQ((';
 export const AUTH_URL = 'https://stackoverflow.com/oauth/dialog';
-export const REDIRECT_URI = `https://stack-api-test.netlify.app/login`;
+export const REDIRECT_URI = process.env.NODE_ENV === 'development' ? 'http://localhost:3002/login' : 'https://stack-api-test.netlify.app/login';
 export const BASE_URL = 'https://api.stackexchange.com/2.3';
 export const SITE = 'stackoverflow';
 export const CLIENT_ID = '22525';
